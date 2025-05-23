@@ -1,16 +1,14 @@
-FROM node:18
+# Temel Java 17 JDK imajı
+FROM openjdk:17-jdk-slim
 
-# Çalışma dizini olarak /app belirleniyor
+# Çalışma dizinini ayarla
 WORKDIR /app
 
-# Sadece WEBCODE klasörünün içeriğini kopyala
-COPY WEBCODE/ .
+# Tüm dosyaları container'a kopyala
+COPY . .
 
-# Bağımlılıkları yükle
-RUN npm install
-
-# Railway genelde port 3000'ü dinler, uygulaman orada çalışmalı
+# Port 8080 veya 3000 gibi bir port varsa expose et (Railway port dinlemesi için)
 EXPOSE 3000
 
-# Uygulamanın başlangıç komutu
-CMD ["npm", "start"]
+# Uygulamanın başlatılması
+CMD ["java", "-jar", "DO.jar"]
